@@ -8,7 +8,7 @@ const public_users = express.Router();
 public_users.post("/register", (req,res) => {
   let usr = req.params.username;
   let pwd = req.params.password;
-  if (!(usr&&pwd)) {
+  if (!usr | !pwd) {
     return res.status(400).json(usr+pwd);
   }
   var unq = true;
