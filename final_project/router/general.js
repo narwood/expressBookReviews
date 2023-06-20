@@ -64,4 +64,61 @@ public_users.get('/review/:isbn',function (req, res) {
   return res.status(300).json(books[parseInt(req.params.isbn)]["reviews"]);
 });
 
+// TASK 10 - Get the book list using promises
+public_users.get('/async-get-books',function (req, res) {
+
+  const get_books = new Promise((resolve, reject) => {
+      resolve(res.send(JSON.stringify({books}, null, 4)));
+    });
+
+    get_books.then(() => console.log("Promise for Task 10 resolved"));
+
+});
+
+// TASK 11 - Get book details by ISBN using promises
+public_users.get('/async-get-isbn/:isbn',function (req, res) {
+
+  const get_books = new Promise((resolve, reject) => {
+      let isbn = parseInt(req.params.isbn);
+      let book = books[isbn];
+      resolve(res.send(JSON.stringify({book}, null, 4)));
+    });
+
+    get_books.then(() => console.log("Promise for Task 11 resolved"));
+
+});
+// TASK 12 - Get book details by author using promises
+public_users.get('/async-get-author/:author',function (req, res) {
+
+  const get_books = new Promise((resolve, reject) => {
+      for (var i in books) {
+          if (books[i]["author"]===req.params.author) {
+              let book = bboks[i]
+              resolve(res.send(JSON.stringify({book}, null, 4)));
+          }
+      }
+      resolve(res.send("Author not found."));
+    });
+
+    get_books.then(() => console.log("Promise for Task 12 resolved"));
+
+});
+
+// TASK 13 - Get book details based on title using promises
+public_users.get('/async-get-title/:title',function (req, res) {
+
+  const get_books = new Promise((resolve, reject) => {
+      for (var i in books) {
+          if (books[i]["title"]===req.params.title) {
+              let book = books[i];
+              resolve(res.send(JSON.stringify({book}, null, 4)));
+          }
+      }
+      resolve(res.send("No matching title found."));
+    });
+
+    get_books.then(() => console.log("Promise for Task 13 resolved"));
+
+});
+
 module.exports.general = public_users;
