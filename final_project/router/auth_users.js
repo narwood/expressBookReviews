@@ -15,20 +15,20 @@ const isValid = (username)=>{ //returns boolean
 }
 
 const authenticatedUser = (username,password)=>{ //returns boolean
-  let validUser = users.filter((user)=> {
-    return (user.username === username && user.password === password)
-  });
-  if(validUser.lenght > 0) {
-    return true;
-  } else {
-    return false;
-  }
+    let validUser = users.filter((user)=>{
+        return (user.username === username && user.password === password)
+      });
+      if(validUser.length > 0){
+        return true;
+      } else {
+        return false;
+      }
 }
 
 //only registered users can login
 regd_users.post("/login", (req,res) => {
-  const username = req.query.username;
-  const password = req.query.password;
+  const username = req.body.username;
+  const password = req.body.password;
 
   if (authenticatedUser(username, password)) {
     let accessToken = jwt.sign({data: password}, 'access', {expiresIn: 60*60});
