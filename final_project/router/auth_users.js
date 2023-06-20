@@ -15,17 +15,14 @@ const isValid = (username)=>{ //returns boolean
 }
 
 const authenticatedUser = (username,password)=>{ //returns boolean
-  for (var user in users) {
-    if (user["username"]===username) {
-        if (user["password"]===password) {
-          return true;
-        }
-        else {
-          return false;
-        }
-    }
-}
-  return false;
+  let validUser = users.filter((user)=> {
+    return (user.username === username && user.password === password)
+  });
+  if(validUser.lenght > 0) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 //only registered users can login
